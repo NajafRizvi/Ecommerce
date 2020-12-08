@@ -1,8 +1,7 @@
 import axios from "axios";
-import { CART_ADD_ITEM } from "../../constants/addToCardConstant";
+import { CART_ADD_ITEM,CART_REMOVE_ITEM } from "../../constants/addToCardConstant";
 
-const addToCart = (productID, qty) => async (dispatch) => {
-  try {
+export const addToCart = (productID, qty) => async (dispatch,getState) => {
     const { data } = await axios.get("/api/product/" + productID);
     dispatch({
         type: CART_ADD_ITEM, payload: {
@@ -10,21 +9,15 @@ const addToCart = (productID, qty) => async (dispatch) => {
         name: data.name,
         image: data.imageSrc,
         price: data.price,
-        qty
-      }
+        qty,
+      },
     });
-    // const { cart: { cartItems } } = getState();
-    // Cookie.set("cartItems", JSON.stringify(cartItems));
-
-  } catch (error) {
-
-  }
+    localStorage.setItem("cartItems",JSON.stringify(getState().cart.cartItems))
+};
+export const removeFromCart = (productId) => (dispatch,getState) => {
+  dispatch({ type: CART_REMOVE_ITEM, payload: productId });
+  // const { cart: { cartItems } } = getState();
+  // Cookie.set("cartItems", JSON.stringify(cartItems));
 }
-// const removeFromCart = (productId) => (dispatch, getState) => {
-//   dispatch({ type: CART_REMOVE_ITEM, payload: productId });
+ 
 
-//   const { cart: { cartItems } } = getState();
-//   Cookie.set("cartItems", JSON.stringify(cartItems));
-// }
-
-export { addToCart }

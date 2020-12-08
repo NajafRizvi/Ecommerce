@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM} from "../../constants/addToCardConstant";
+import { CART_ADD_ITEM,CART_REMOVE_ITEM} from "../../constants/addToCardConstant";
 
 function addToCartReducer(state = { cartItems: [] }, action) {
   switch (action.type) {
@@ -12,8 +12,8 @@ function addToCartReducer(state = { cartItems: [] }, action) {
         };
       }
       return { cartItems: [...state.cartItems, item] };
-    // case CART_REMOVE_ITEM:
-    //   return { cartItems: state.cartItems.filter(x => x.product !== action.payload) };
+      case CART_REMOVE_ITEM:
+       return { cartItems: state.cartItems.filter(x => x.product !== action.payload) };
     default:
       return state
   }

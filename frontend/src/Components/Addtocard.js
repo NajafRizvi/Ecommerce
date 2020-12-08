@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '../store/action/addToCardAction'
+import { addToCart,removeFromCart } from '../store/action/addToCardAction'
 export default function Addtocard(props) {
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -12,7 +12,9 @@ export default function Addtocard(props) {
             dispatch(addToCart(productID, qty));
         }
     }, []);
-
+    const removeFromCartHandler = (productId) => {
+        dispatch(removeFromCart(productId));
+      }
     const checkOut = ()=>{
         props.history.push("/Checkout/" + props.match.params.id)
         console.log("hey")
@@ -28,7 +30,6 @@ export default function Addtocard(props) {
                                     <th>Product</th>
                                     <th>Quantity</th>
                                     <th className="text-center">Price</th>
-                                    <th className="text-center">Total</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
@@ -52,14 +53,13 @@ export default function Addtocard(props) {
                                                     </div>
                                                 </div></td>
                                             <td className="col-sm-1 col-md-1" style={{ textAlign: 'center' }}>
-                                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                                 defaultValue={item.qty} 
-                                                 onChange={(e) => dispatch(addToCart(item.product, e.target.value))} />
+                                                <input type="number" className="form-control" id="exampleInputEmail1"
+                                                 value={item.qty} 
+                                                 onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))} />
                                             </td>
                                             <td className="col-sm-1 col-md-1 text-center"><strong>${item.price}</strong></td>
-                                            <td className="col-sm-1 col-md-1 text-center"><strong>$ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}</strong></td>
                                             <td className="col-sm-1 col-md-1">
-                                                <button type="button" className="btn btn-danger">
+                                            <button type="button" className="btn btn-danger" onClick={()=>removeFromCartHandler(item.product)}>
                                                     <span className="glyphicon glyphicon-remove" /> Remove
                                             </button></td>
                                         </tr>

@@ -1,0 +1,65 @@
+[
+    {
+      "id": 1,
+      "name": "Smile",
+      "price": 200.0,
+      "stars": 3,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/t-yellow.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Smile t.short",
+      "price": 120.0,
+      "stars": 4,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL"
+      },
+      "imageSrc": "/images/h-black.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Huddi",
+      "price": 100.0,
+      "stars": 5,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/h-pink.jpg"
+    },
+    {
+      "id": 4,
+      "name": "T-Shirt",
+      "price": 100.0,
+      "stars": 5,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/t-lightyellow.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Apper",
+      "price": 100.0,
+      "stars": 5,
+      "size": {
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/blackapper.jpg"
+    }
+  ]

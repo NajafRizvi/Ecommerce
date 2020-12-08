@@ -2,6 +2,7 @@ import React from 'react';
 import Home from '../Home';
 import Addtocard from '../Addtocard';
 import Checkout from '../Checkout';
+import Design from '../Design';
 import {
     BrowserRouter as Router,
     Route,
@@ -17,6 +18,7 @@ export default function Routers() {
                     <Route exact path="/Preview/:id" component={Preview}></Route>
                     <Route exact path="/Addtocard/:id?" component={Addtocard}></Route>
                     <Route path="/Checkout" component={Checkout}></Route>
+                    <Route path="/Design" component={Design}></Route>
                 </Switch>
             </Router>
         </div>

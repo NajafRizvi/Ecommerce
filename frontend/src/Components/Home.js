@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {Navbar} from './Navbar';
 import {Listproduct} from '../store/action/productListAction'
-
 export default function Home() {
-
+  const cart = useSelector(state => state.cart);
+  const { cartItems } = cart;
   const productList = useSelector(state => state.productList);
   const { products,loading, error } = productList;
   const dispatch = useDispatch();

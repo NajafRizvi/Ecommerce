@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart,removeFromCart } from '../store/action/addToCardAction'
+import Footer from './Footer';
+import {Navbar} from './Navbar';
 export default function Addtocard(props) {
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -21,6 +23,7 @@ export default function Addtocard(props) {
       }
     return (
         <div>
+            <Navbar/>
             <div className="container">
                 <div className="row">
                     <div className="col-sm-12 col-md-10 col-md-offset-1">
@@ -108,6 +111,7 @@ export default function Addtocard(props) {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
 }

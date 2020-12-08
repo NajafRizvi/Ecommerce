@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Footer from './Footer'
+import Footer from './Footer';
+import {Navbar} from './Navbar';
 import { listProductDetails } from '../store/action/productListAction'
 import './preview.css';
 export default function Preview(props) {
@@ -45,6 +46,7 @@ export default function Preview(props) {
     error ? 
     (<div>{error}</div>):
         <div>
+        <Navbar/>
           <header role="banner" aria-label="Heading">
             <div className="header">
               <div className="_cont">

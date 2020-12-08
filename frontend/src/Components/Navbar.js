@@ -1,6 +1,9 @@
 import React from "react"
+import {useSelector} from 'react-redux';
 import './navbar.css'
 export const Navbar = () => {
+  const cart = useSelector(state => state.cart);
+    const { cartItems } = cart;
   return (
     <div>
         <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -18,8 +21,12 @@ export const Navbar = () => {
             </div>
           </form>
           <div className=" d-flex justify-content-end navbar-nav">
-            <a href="#" className="nav-item nav-link">Login</a>
-            <a href="#" className="nav-item nav-link">Cart</a>
+            <a href="#" className="nav-item nav-link">Login<i className="fa fa-user" /></a>
+            <a href="#" className="nav-item nav-link">Cart<i className="fa fa-shopping-cart" />
+            {cartItems.length> 0 && (
+              <span><i className="fa fa-user-check"></i>{cartItems.length}</span>
+            )}
+            </a>
           </div>
           
         </div>

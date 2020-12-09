@@ -18,7 +18,7 @@ export default function Addtocard(props) {
         dispatch(removeFromCart(productId));
       }
     const checkOut = ()=>{
-        props.history.push("/Checkout/" + props.match.params.id)
+        props.history.push("/AddToCheckout/")
         console.log("hey")
       }
     return (

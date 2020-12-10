@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './home.css';
 import Footer from './Footer';
-import banner from './hero-banner-alt.jpg';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {Navbar} from './Navbar';
 import {Listproduct} from '../store/action/productListAction'
 export default function Home() {
-  const cart = useSelector(state => state.cart);
-  const { cartItems } = cart;
   const productList = useSelector(state => state.productList);
   const { products,loading, error } = productList;
   const dispatch = useDispatch();
@@ -40,6 +37,10 @@ export default function Home() {
     </div>
   </section>
     <div className="container mt-4">
+      <header className="mt-4">
+            <p class="small text-muted small text-uppercase mb-1">Made the hard way</p>
+            <h2 class="h5 text-uppercase mb-4">Top trending products</h2>
+      </header>
   <ScrollAnimation animateIn='fadeIn'>
       <div className="row">
         {products.map(items=>(

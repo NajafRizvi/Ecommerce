@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import ScrollAnimation from 'react-animate-on-scroll';
 import Footer from './Footer';
 import {Navbar} from './Navbar';
 import { listProductDetails } from '../store/action/productListAction'
 import './preview.css';
+import RelatedProducts from './RelatedProducts';
 export default function Preview(props) {
   const productDetail = useSelector(state => state.productDetail)
   const { products, loading, error } = productDetail
@@ -38,9 +40,9 @@ export default function Preview(props) {
   }
   return (
     loading ?
-    (<div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="sr-only"></span>
+    (<div className="d-flex justify-content-center">
+    <div className="spinner-border" role="status">
+      <span className="sr-only"></span>
     </div>
     </div>):
     error ? 
@@ -63,15 +65,19 @@ export default function Preview(props) {
                   <a id="customer_login_link">Sign In</a>
                   <nav role="navigation" aria-label="Catalog">
                     <ul>
-                      <li className="nc nav-li-category">
-                        <a className="nc nav-category" data-subcategories={1}>Women</a>
-                        <ul className="nc">
-                        </ul>
+                      <li>
+                        <a>Home</a>
+                      </li>
+                      <li className="nav-li-category">
+                        <a className="nc nav-category" >Shop</a>
+                        
                       </li>
                       <li className="nc nav-li-category">
-                        <a className="nc nav-category" data-subcategories={1}>Men</a>
-                        <ul className="nc">
-                        </ul>
+                        <a className="nc nav-category" >Contact</a>
+                        
+                      </li>
+                      <li className="nc nav-li-category">
+                        <a className="nc nav-category" >About Us</a>
                       </li>
                     </ul>
                   </nav>
@@ -83,7 +89,7 @@ export default function Preview(props) {
               <div className="_cont">
                 <ol>
                   <li><a title="Back to the frontpage">Home</a></li>
-                  <li><a title>Men</a></li>
+                  <li><a title>Shop</a></li>
                   <li>Tony Hunfinger T-Shirt New York</li>
                 </ol>
               </div>
@@ -100,6 +106,13 @@ export default function Preview(props) {
                       </div>
                     </div>
                     <div className="right-col">
+                    <ul className="list-inline mb-2">
+                <li className="list-inline-item m-0"><i className="fas fa-star text-warning"></i></li>
+                <li className="list-inline-item m-0"><i className="fas fa-star text-warning"></i></li>
+                <li className="list-inline-item m-0"><i className="fas fa-star text-warning"></i></li>
+                <li className="list-inline-item m-0"><i className="fas fa-star text-warning"></i></li>
+                <li className="list-inline-item m-0"><i className="fas fa-star text-warning"></i></li>
+              </ul>
                       <h1 itemProp="name">{products.name}</h1>
                       <div itemProp="offers" itemScope itemType="http://schema.org/Offer">
                         <meta itemProp="priceCurrency" content="USD" />
@@ -198,6 +211,9 @@ export default function Preview(props) {
               </div>
             </div>
           </section>
+          <ScrollAnimation animateIn="fadeIn">
+            <RelatedProducts/>
+          </ScrollAnimation>
           <Footer/>
         </div>
   )

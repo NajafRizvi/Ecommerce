@@ -22,6 +22,9 @@ export default function Addtocard(props) {
         props.history.push("/AddToCheckout/")
         console.log("hey")
       }
+    const Redirect = () => {
+        props.history.push('/')
+    }
     return (
         <div>
             <Navbar/>
@@ -30,7 +33,7 @@ export default function Addtocard(props) {
                     
                     {cartItems.length === 0 ?
                     
-                    <EmptyCart/>
+                    <EmptyCart Redirect={Redirect}/>
                     :
                     <div className="col-sm-12 col-md-10 col-md-offset-1">
                         <table className="table table-hover">
@@ -56,7 +59,7 @@ export default function Addtocard(props) {
                                                     </div>
                                                 </div></td>
                                             <td className="col-sm-1 col-md-1" style={{ textAlign: 'center' }}>
-                                                <input type="number" className="form-control" id="exampleInputEmail1"
+                                                <input type="number" className=" from-control" id="exampleInputEmail1"
                                                  value={item.qty} 
                                                  onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))} />
                                             </td>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart,removeFromCart } from '../store/action/addToCardAction'
+import EmptyCart from './EmptyCart';
 import Footer from './Footer';
 import {Navbar} from './Navbar';
 export default function Addtocard(props) {
@@ -26,6 +27,11 @@ export default function Addtocard(props) {
             <Navbar/>
             <div className="container">
                 <div className="row">
+                    
+                    {cartItems.length === 0 ?
+                    
+                    <EmptyCart/>
+                    :
                     <div className="col-sm-12 col-md-10 col-md-offset-1">
                         <table className="table table-hover">
                             <thead>
@@ -37,13 +43,7 @@ export default function Addtocard(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.length === 0 ?
-                                    <div className="row">
-                                        <div className="col">
-                                            Card is Empty
-                    </div>
-                                    </div>
-                                    :
+                                {
                                     cartItems.map(item => (
                                         <tr>
                                             <td className="col-sm-8 col-md-6">
@@ -109,8 +109,10 @@ export default function Addtocard(props) {
                             </tbody>
                         </table>
                     </div>
+                    }
                 </div>
             </div>
+                                    
             <Footer/>
         </div>
     )

@@ -1,12 +1,13 @@
 import React from "react"
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom'
 import './navbar.css'
-export const Navbar = () => {
+export const Navbar = (props) => {
   const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
   return (
     <div>
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+        <nav className="navbar navbar-expand-md navbar-light bg-light fixed-top">
         <a href="#" className="navbar-brand">Brand</a>
         <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
           <span className="navbar-toggler-icon" />
@@ -22,11 +23,13 @@ export const Navbar = () => {
           </form>
           <div className=" d-flex justify-content-end navbar-nav">
             <a href="#" className="nav-item nav-link">Login<i className="fa fa-user" /></a>
+            <Link to={'/Addtocart/'}>
             <a href="#" className="nav-item nav-link">Cart<i className="fa fa-shopping-cart" />
             {cartItems.length> 0 && (
               <span><i className="fa fa-user-check"></i>{cartItems.length}</span>
             )}
             </a>
+            </Link>
           </div>
           
         </div>

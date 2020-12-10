@@ -5,7 +5,7 @@ import {
   Elements,
   useElements,
   useStripe,
-  ElementsConsumer
+  ElementsConsumer,
 } from '@stripe/react-stripe-js';
 
 // Custom styling can be passed to options when creating an Element.

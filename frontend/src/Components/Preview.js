@@ -168,9 +168,9 @@ export default function Preview(props) {
                               </div>
                               <div className="row d-flex justify-content-center">
 
-                                <div id="AddToCart" quickbeam="add-to-cart">
-                                  <span id="AddToCartText" onClick={()=>addToCard()}>Add to Cart</span>
-                                </div>
+                                <button id="AddToCart" quickbeam="add-to-cart" onClick={()=>addToCard()}>
+                                  <span id="AddToCartText">Add to Cart</span>
+                                </button>
 
                               </div>
                             </div>

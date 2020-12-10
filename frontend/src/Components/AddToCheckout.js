@@ -3,7 +3,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe("pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV");
 const ProductDisplay = ({ handleClick }) => (
   <section>
     <div className="product">
@@ -27,6 +26,7 @@ const Message = ({ message }) => (
   </section>
 );
 export default function AddToCheckout() {
+  const stripePromise = loadStripe("pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV");
   const [message, setMessage] = useState("");
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -40,26 +40,23 @@ export default function AddToCheckout() {
       );
     }
   }, []); 
+
   const handleClick = async (e) => {
     // Get Stripe.js instance
     const stripe = await stripePromise;
-
     // Call your backend to create the Checkout Session
-    const response = await fetch('/create-checkout-session', { method: 'POST',headers:{"Content-Type":"Application/json"} });
-
-    const session = await response.json();
-
-    // When the customer clicks on the button, redirect them to Checkout.
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
+    const response = await axios.post(' http://localhost:5000/create-checkout-session')
+    const session = response.json()
+      // When the customer clicks on the button, redirect them to Checkout.
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+    if(result.error){
       // If `redirectToCheckout` fails due to a browser or network
       // error, display the localized error message to your customer
       // using `result.error.message`.
+      console.log(result.error.message)
     }
-    e.preventDefault()
   };
   return message ? (
     <Message message={message} />

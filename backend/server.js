@@ -1,8 +1,9 @@
 import express from 'express';
+import stripe from 'stripe';
 import data from './products.json';
 const app = express();
+app.use(express.json())
 app.use(express.static('.'));
-
 // app.post("/checkout",async(req,res)=>{
 //   const stripe = Stripe('sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0');
 //   console.log("Request",req.body);
@@ -36,5 +37,34 @@ app.get("/api/product/:id", (req, res) => {
     res.status(404).send({mess:"Failed"})
   }
   });
-  
-  app.listen(5000, () => { console.log("Server started at http://localhost:5000")})
+
+const YOUR_DOMAIN = 'localhost:3000/AddToCheckout';
+app.post('/create-checkout-session', async (req, res) =>{
+  const Stripe = new stripe("sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0")
+  try{
+    const session = await Stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Stubborn Attachments',
+              images: ['https://i.imgur.com/EHyR2nP.png'],
+            },
+            unit_amount: 2000,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${YOUR_DOMAIN}?Success=true`,
+      cancel_url: `${YOUR_DOMAIN}?Cancel=true`,
+    });
+    res.json({ id: session.id });
+  }
+  catch(error){
+    console.log(error)
+  }
+  })
+app.listen(8000, () => { console.log("Server started at http://localhost:8000")})

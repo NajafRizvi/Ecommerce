@@ -1,7 +1,10 @@
 import React from 'react';
 import Home from '../Home';
 import Addtocard from '../Addtocard';
+import Success from '../Success';
+import Cancel from '../Cancel';
 import Checkout from '../Checkout';
+import EmptyCart from '../EmptyCart';
 import AddToCheckout from '../AddToCheckout';
 import Design from '../Design';
 import {
@@ -16,11 +19,13 @@ export default function Routers() {
             <Router>
                 <Switch>
                     <Route exact={true} path="/" component={Home}></Route>
-                    <Route exact path="/Preview/:id" component={Preview}></Route>
-                    <Route exact path="/Addtocard/:id?" component={Addtocard}></Route>
-                    {/* <Route path="/Checkout" component={Checkout}></Route> */}
-                    <Route path="/AddToCheckout" component={AddToCheckout}></Route>
+                    <Route  path="/Preview/:id" component={Preview}></Route>
+                    <Route  path="/Addtocard/:id?" component={Addtocard}></Route>
+                    <Route exact path="/AddToCheckout" component={AddToCheckout}></Route>
+                    <Route path="/EmptyCart" component={EmptyCart}></Route>
                     <Route path="/Design" component={Design}></Route>
+                    <Route path="/Success" component={Success}></Route>
+                    <Route path="/Cancel" component={Cancel}></Route>
                 </Switch>
             </Router>
         </div>

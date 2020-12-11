@@ -1,9 +1,8 @@
 import React from 'react';
 import Home from '../Home';
 import Addtocard from '../Addtocard';
-import Success from '../Success';
-import Cancel from '../Cancel';
 import Checkout from '../Checkout';
+import BillingDetails from '../BillingDetails';
 import EmptyCart from '../EmptyCart';
 import AddToCheckout from '../AddToCheckout';
 import Design from '../Design';
@@ -24,8 +23,7 @@ export default function Routers() {
                     <Route exact path="/AddToCheckout" component={AddToCheckout}></Route>
                     <Route path="/EmptyCart" component={EmptyCart}></Route>
                     <Route path="/Design" component={Design}></Route>
-                    <Route path="/Success" component={Success}></Route>
-                    <Route path="/Cancel" component={Cancel}></Route>
+                    <BillingDetails path="/BillingDetails" component={BillingDetails}></BillingDetails>
                 </Switch>
             </Router>
         </div>

@@ -1,15 +1,26 @@
-import React, { useEffect } from 'react';
+import React,{ useEffect,useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart,removeFromCart } from '../store/action/addToCardAction'
+import CheckoutForm from './CheckoutForm';
+import product from '../img/product-2.jpg';
 import EmptyCart from './EmptyCart';
 import Footer from './Footer';
-import {Navbar} from './Navbar';
+import {Navbar} from './Navbar';  
+import { loadStripe } from '@stripe/stripe-js';
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+  ElementsConsumer,
+} from '@stripe/react-stripe-js';
 export default function Addtocard(props) {
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
     const productID = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
     const dispatch = useDispatch();
+    const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
     useEffect(() => {
         if (productID) {
             dispatch(addToCart(productID, qty));
@@ -17,10 +28,6 @@ export default function Addtocard(props) {
     }, []);
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
-      }
-    const checkOut = ()=>{
-        props.history.push("/AddToCheckout/")
-        console.log("hey")
       }
     const Redirect = () => {
         props.history.push('/')
@@ -103,9 +110,7 @@ export default function Addtocard(props) {
                                             <span className="glyphicon glyphicon-shopping-cart" /> Continue Shopping
                     </button></td>
                                     <td>
-                                        <button type="button" className="btn btn-success" 
-                                        // disabled={cartItems.length === 0}
-                                            onClick={checkOut}>
+                                        <button type="button" className="btn btn-success">
                                             Checkout <span className="glyphicon glyphicon-play" />
                                         </button></td>
                                 </tr>
@@ -114,8 +119,10 @@ export default function Addtocard(props) {
                     </div>
                     }
                 </div>
-            </div>
-                                    
+            </div> 
+            <Elements stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>                             
             <Footer/>
         </div>
     )

@@ -1,41 +1,112 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './home.css'
+import Footer from './Footer'
+import CheckoutForm from './CheckoutForm'
 import {useSelector} from 'react-redux'
-export default function BillingDetails() {
+import axios from 'axios'
+import { loadStripe } from '@stripe/stripe-js';
+import {Elements,useStripe,useElements,CardElement} from '@stripe/react-stripe-js';
+function Checkout(props) {
     const state = useSelector(state => state.cart)
     const {cartItems} = state
-    console.log(cartItems)
+    const price = cartItems[0].price
+    const [isProcessing, setIsProcessing] = useState(false)
+    const [checkoutErrorMsg, setCheckoutErrorMsg] = useState("")
+    const [buttonMsg, setButtonMsg] = useState("Pay")
+
+    const stripe = useStripe()
+    const element = useElements()
+    // Custom styling can be passed to options when creating an Element.
+    const CARD_ELEMENT_OPTIONS = {
+    style: {
+      base: {
+        color: 'blue',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: 'blue'
+        },
+        width:"50px"
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    }
+  };
+    const handleChange = (e) => {
+        if(e.error){
+            return setCheckoutErrorMsg(e.error.message)
+        }
+        setCheckoutErrorMsg("")
+    }
+
+    const handlePayment = async (e) => {
+
+        e.preventDefault()
+
+        setIsProcessing(true)
+        setButtonMsg("Processing...")
+
+        const cardElement = element.getElement('card')
+
+        const billingInfo = {
+            name: e.target.name.value,
+            phone: e.target.phone.value,
+            email: e.target.email.value,
+            address: {
+                line1: e.target.address.value
+            }
+        }
+
+        try {
+            // Got our client secret
+            const paymentIntent = await axios.post("/payment", {
+                amount: price * 100
+            })
+
+            // Create PaymentMethod Object
+            const paymentMethodObj = await stripe.createPaymentMethod({
+                type: "card",
+                card: cardElement,
+                billing_details: billingInfo
+            })
+
+            if(paymentMethodObj.error){
+                setCheckoutErrorMsg(paymentMethodObj.error.message)
+                setIsProcessing(false)
+                setButtonMsg("Pay")
+                return
+            }
+            
+            // Confirm Payment Method
+            const confirmPayment = await stripe.confirmCardPayment(paymentIntent.data, {
+                payment_method: paymentMethodObj.paymentMethod.id
+            })
+
+            if(confirmPayment.error){
+                setCheckoutErrorMsg(confirmPayment.error.message)
+                setIsProcessing(false)
+                setButtonMsg("Pay")
+                return
+            }
+
+            setButtonMsg("Success! Payment is Complete")
+
+            setTimeout(() => {
+                setButtonMsg("Pay")
+                setIsProcessing(false)
+            }, 2000)
+            
+        } catch (error) {
+            setCheckoutErrorMsg(error.message)
+            setIsProcessing(false)
+        }
+
+    }
     return (
         <div className="page-holder">
-        {/* navbar*/}
-        <header className="header bg-white">
-          <div className="container px-0 px-lg-3">
-            <nav className="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a className="navbar-brand" href="index.html"><span className="font-weight-bold text-uppercase text-dark">Boutique</span></a>
-              <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon" /></button>
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                  <li className="nav-item">
-                    {/* Link*/}<a className="nav-link" href="index.html">Home</a>
-                  </li>
-                  <li className="nav-item">
-                    {/* Link*/}<a className="nav-link" href="shop.html">Shop</a>
-                  </li>
-                  <li className="nav-item">
-                    {/* Link*/}<a className="nav-link" href="detail.html">Product detail</a>
-                  </li>
-                  <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                    <div className="dropdown-menu mt-3" aria-labelledby="pagesDropdown"><a className="dropdown-item border-0 transition-link" href="index.html">Homepage</a><a className="dropdown-item border-0 transition-link" href="shop.html">Category</a><a className="dropdown-item border-0 transition-link" href="detail.html">Product detail</a><a className="dropdown-item border-0 transition-link" href="cart.html">Shopping cart</a><a className="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a></div>
-                  </li>
-                </ul>
-                <ul className="navbar-nav ml-auto">               
-                  <li className="nav-item"><a className="nav-link" href="cart.html"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">(2)</small></a></li>
-                  <li className="nav-item"><a className="nav-link" href="#"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></a></li>
-                  <li className="nav-item"><a className="nav-link" href="#"> <i className="fas fa-user-alt mr-1 text-gray" />Login</a></li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </header>
         {/*  Modal */}
         <div className="modal fade" id="productView" tabIndex={-1} role="dialog" aria-hidden="true">
           <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -100,7 +171,7 @@ export default function BillingDetails() {
             <h2 className="h5 text-uppercase mb-4">Billing details</h2>
             <div className="row">
               <div className="col-lg-8">
-                <form action="#">
+                <form  onSubmit={handlePayment}>
                   <div className="row">
                     <div className="col-lg-6 form-group">
                       <label className="text-small text-uppercase" htmlFor="firstName">First name</label>
@@ -122,17 +193,9 @@ export default function BillingDetails() {
                       <label className="text-small text-uppercase" htmlFor="company">Company name (optional)</label>
                       <input className="form-control form-control-lg" id="company" type="text" placeholder="Your company name" />
                     </div>
-                    <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="country">Country</label>
-                      <select className="selectpicker country" id="country" data-width="fit" data-style="form-control form-control-lg" data-title="Select your country" />
-                    </div>
                     <div className="col-lg-12 form-group">
                       <label className="text-small text-uppercase" htmlFor="address">Address line 1</label>
                       <input className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
-                    </div>
-                    <div className="col-lg-12 form-group">
-                      <label className="text-small text-uppercase" htmlFor="address">Address line 2</label>
-                      <input className="form-control form-control-lg" id="addressalt" type="text" placeholder="Apartment, Suite, Unit, etc (optional)" />
                     </div>
                     <div className="col-lg-6 form-group">
                       <label className="text-small text-uppercase" htmlFor="city">Town/City</label>
@@ -196,7 +259,7 @@ export default function BillingDetails() {
                       </div>
                     </div>
                     <div className="col-lg-12 form-group">
-                      <button className="btn btn-dark" type="submit">Place order</button>
+                      <button className="btn btn-dark" type="submit" disabled={isProcessing}>{buttonMsg}</button>
                     </div>
                   </div>
                 </form>
@@ -217,53 +280,31 @@ export default function BillingDetails() {
                     </ul>
                   </div>
                 </div>
+                <div className="row">
+                        <div className="col">
+                        <CardElement
+                        options={CARD_ELEMENT_OPTIONS}
+                        onChange={handleChange}/>
+                        </div>
+                <p>
+                    {checkoutErrorMsg}
+                </p>
+              </div>
               </div>
             </div>
           </section>
         </div>
-        <footer className="bg-dark text-white">
-          <div className="container py-4">
-            <div className="row py-5">
-              <div className="col-md-4 mb-3 mb-md-0">
-                <h6 className="text-uppercase mb-3">Customer services</h6>
-                <ul className="list-unstyled mb-0">
-                  <li><a className="footer-link" href="#">Help &amp; Contact Us</a></li>
-                  <li><a className="footer-link" href="#">Returns &amp; Refunds</a></li>
-                  <li><a className="footer-link" href="#">Online Stores</a></li>
-                  <li><a className="footer-link" href="#">Terms &amp; Conditions</a></li>
-                </ul>
-              </div>
-              <div className="col-md-4 mb-3 mb-md-0">
-                <h6 className="text-uppercase mb-3">Company</h6>
-                <ul className="list-unstyled mb-0">
-                  <li><a className="footer-link" href="#">What We Do</a></li>
-                  <li><a className="footer-link" href="#">Available Services</a></li>
-                  <li><a className="footer-link" href="#">Latest Posts</a></li>
-                  <li><a className="footer-link" href="#">FAQs</a></li>
-                </ul>
-              </div>
-              <div className="col-md-4">
-                <h6 className="text-uppercase mb-3">Social media</h6>
-                <ul className="list-unstyled mb-0">
-                  <li><a className="footer-link" href="#">Twitter</a></li>
-                  <li><a className="footer-link" href="#">Instagram</a></li>
-                  <li><a className="footer-link" href="#">Tumblr</a></li>
-                  <li><a className="footer-link" href="#">Pinterest</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="border-top pt-4" style={{borderColor: '#1d1d1d !important'}}>
-              <div className="row">
-                <div className="col-lg-6">
-                  <p className="small text-muted mb-0">© 2020 All rights reserved.</p>
-                </div>
-                <div className="col-lg-6 text-lg-right">
-                  <p className="small text-muted mb-0">Template designed by <a className="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+          <Footer/>
       </div>
     )
+}
+export default function BillingDetails(){
+  const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
+  return(
+    <div>
+      <Elements stripe={stripePromise}>
+        <Checkout/>
+      </Elements>
+    </div>
+  )
 }

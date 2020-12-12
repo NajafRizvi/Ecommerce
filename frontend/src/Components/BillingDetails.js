@@ -1,6 +1,10 @@
 import React from 'react'
 import './home.css'
+import {useSelector} from 'react-redux'
 export default function BillingDetails() {
+    const state = useSelector(state => state.cart)
+    const {cartItems} = state
+    console.log(cartItems)
     return (
         <div className="page-holder">
         {/* navbar*/}
@@ -203,11 +207,13 @@ export default function BillingDetails() {
                   <div className="card-body">
                     <h5 className="text-uppercase mb-4">Your order</h5>
                     <ul className="list-unstyled mb-0">
-                      <li className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">Red digital smartwatch</strong><span className="text-muted small">$250</span></li>
-                      <li className="border-bottom my-2" />
-                      <li className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">Gray Nike running shoes</strong><span className="text-muted small">$351</span></li>
-                      <li className="border-bottom my-2" />
-                      <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>$601</span></li>
+                      {cartItems.map((item,index)=>(
+                        <div>
+                        <li key={index} className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{item.name}</strong><span className="text-muted small">${cartItems.reduce((a, c) => a + c.price * c.qty,0)}</span></li>
+                        <li className="border-bottom my-2"/>
+                        </div>
+                      ))}
+                      <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>${cartItems.reduce((a, c) => a + c.price * c.qty,-10)}</span></li>
                     </ul>
                   </div>
                 </div>

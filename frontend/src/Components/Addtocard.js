@@ -7,13 +7,7 @@ import EmptyCart from './EmptyCart';
 import Footer from './Footer';
 import {Navbar} from './Navbar';  
 import { loadStripe } from '@stripe/stripe-js';
-import {
-  CardElement,
-  Elements,
-  useElements,
-  useStripe,
-  ElementsConsumer,
-} from '@stripe/react-stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
 export default function Addtocard(props) {
     const cart = useSelector(state => state.cart);
     const { cartItems } = cart;
@@ -29,9 +23,15 @@ export default function Addtocard(props) {
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
       }
+    // Used in Contine to Shopping Button
     const Redirect = () => {
         props.history.push('/')
     }
+    //Used in Checkout Button\
+    const Checkout = ()=>{
+        props.history.push('/BillingDetails')
+    }
+
     return (
         <div>
             <Navbar/>
@@ -110,7 +110,7 @@ export default function Addtocard(props) {
                                             <span className="glyphicon glyphicon-shopping-cart" /> Continue Shopping
                     </button></td>
                                     <td>
-                                        <button type="button" className="btn btn-success">
+                                        <button type="button" className="btn btn-success" onClick={()=>Checkout()}>
                                             Checkout <span className="glyphicon glyphicon-play" />
                                         </button></td>
                                 </tr>

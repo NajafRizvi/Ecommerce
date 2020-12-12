@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import './navbar.css'
 export const Navbar = (props) => {
   const cart = useSelector(state => state.cart);
-    const { cartItems } = cart;
+  const { cartItems } = cart;
   return (
     <div>
         <nav className="navbar navbar-expand-md navbar-light bg-light fixed-top">

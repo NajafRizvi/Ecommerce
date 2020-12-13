@@ -52,8 +52,8 @@
     },
     {
       "id": 5,
-      "name": "Apper",
-      "price": 100.0,
+      "name": "Black Apper",
+      "price": 1500,
       "stars": 5,
       "size": {
         "L": "L",
@@ -61,5 +61,57 @@
         "XXL": "XXL"
       },
       "imageSrc": "/images/blackapper.jpg"
+    },
+    {
+      "id": 6,
+      "name": "UFC Apper",
+      "price": 2000,
+      "stars": 3,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/UFC_BlueApper.jpg"
+    },
+    {
+      "id": 7,
+      "name": "UFC Shirt",
+      "price": 1000.0,
+      "stars": 3,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/UFC_BlueT-Shirt.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Black T-Shirt",
+      "price": 1200,
+      "stars": 3,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/UFC_blacktshirt.jpg"
+    },
+    {
+      "id": 9,
+      "name": "UFC Ultimate",
+      "price": 800,
+      "stars": 3,
+      "size": {
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL"
+      },
+      "imageSrc": "/images/UFC_Ultimate.jpg"
     }
   ]

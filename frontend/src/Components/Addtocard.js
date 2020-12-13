@@ -14,7 +14,6 @@ export default function Addtocard(props) {
     const productID = props.match.params.id;
     const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
     const dispatch = useDispatch();
-    const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
     useEffect(() => {
         if (productID) {
             dispatch(addToCart(productID, qty));

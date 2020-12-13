@@ -5,13 +5,13 @@ import {addToCartReducer} from './reducer/addToCardReducer';
 import thunk from 'redux-thunk';
 
 const initialState = {
-  // cart:{
-  //   cartItems:localStorage.getItem("cartItems")
-  //   ?
-  //   JSON.parse(localStorage.getItem("cartItems"))
-  //   :
-  //   [],
-  // },
+  cart:{
+    cartItems:localStorage.getItem("cartItems")
+    ?
+    JSON.parse(localStorage.getItem("cartItems"))
+    :
+    [],
+  },
 };
 const reducer = combineReducers({
     productList:ProductListReducer,

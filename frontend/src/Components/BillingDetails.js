@@ -7,13 +7,19 @@ import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js';
 import {Elements,useStripe,useElements,CardElement} from '@stripe/react-stripe-js';
 function Checkout(props) {
+    //Redrive Products Items from Cart reducer
     const state = useSelector(state => state.cart)
     const {cartItems} = state
-    const price = cartItems[0].price
+    Object.values(cartItems).map(x=>(
+      console.log(x.name)
+    ))
+    //Set Payment CartElement
     const [isProcessing, setIsProcessing] = useState(false)
     const [checkoutErrorMsg, setCheckoutErrorMsg] = useState("")
     const [buttonMsg, setButtonMsg] = useState("Pay")
+    //Caculate the Total price to show in Order section
     const Price = cartItems.reduce((a, c) => a + c.price * c.qty, -10)
+    //Declear from Stripe Payment
     const stripe = useStripe()
     const element = useElements()
     // Custom styling can be passed to options when creating an Element.
@@ -41,7 +47,7 @@ function Checkout(props) {
         }
         setCheckoutErrorMsg("")
     }
-
+    //Used in Paymeny Button
     const handlePayment = async (e) => {
 
         e.preventDefault()
@@ -203,12 +209,18 @@ function Checkout(props) {
                   <div className="card-body">
                     <h5 className="text-uppercase mb-4">Your order</h5>
                     <ul className="list-unstyled mb-0">
-                      {cartItems.map((item,index)=>(
+                      {Object.values(cartItems).map((x,i)=>(
+                          <div>
+                          <li key={i} className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{x.name}</strong><span className="text-muted small">${x.price * x.qty}</span></li>
+                          <li className="border-bottom my-2"/>
+                          </div>
+                      ))}
+                      {/* {cartItems.map((item,index)=>(
                         <div>
                         <li key={index} className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{item.name}</strong><span className="text-muted small">${cartItems.reduce((a, c) => a + c.price * c.qty,0)}</span></li>
                         <li className="border-bottom my-2"/>
                         </div>
-                      ))}
+                      ))} */}
                        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Shipping Fees</strong><span>$10</span></li>
                       <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>${cartItems.reduce((a, c) => a + c.price * c.qty,-10)}</span></li>
                     </ul>

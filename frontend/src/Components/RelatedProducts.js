@@ -9,72 +9,90 @@ export default function RelatedProducts() {
         <div className="container">
               {/* RELATED PRODUCTS*/}
         <h2 className="h5 text-uppercase mb-4">Related products</h2>
+        <div className="container">
         <div className="row">
-          {/* PRODUCT*/}
-          <div className="col-lg-3 col-sm-6">
-            <div className="product text-center skel-loader">
-              <div className="d-block mb-3 position-relative"><a className="d-block" href="detail.html"><img className="img-fluid w-100" src={product1} alt="..." /></a>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark" href="#"><i className="far fa-heart" /></a></li>
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-dark" href="#">Add to cart</a></li>
-                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href="#productView" data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                  </ul>
+          <div className="col-md-3 col-sm-6">
+            <div className="product-grid6">
+              <div className="product-image6">
+                <a href="#">
+                  <img className="pic-1" src={product1} />
+                </a>
+              </div>
+              <div className="product-content">
+                <h3 className="title"><a href="#">Apple Airpods</a></h3>
+                <div className="price">$11.00
+                  <span>$14.00</span>
                 </div>
               </div>
-              <h6> <a className="reset-anchor" href="detail.html">Kui Ye Chen’s AirPods</a></h6>
-              <p className="small text-muted">$250</p>
+              <ul className="social">
+                <li><a href data-tip="Quick View"><i className="fa fa-search" /></a></li>
+                <li><a href data-tip="Add to Wishlist"><i className="fa fa-shopping-bag" /></a></li>
+                <li><a href data-tip="Add to Cart"><i className="fa fa-shopping-cart" /></a></li>
+              </ul>
             </div>
           </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-3 col-sm-6">
-            <div className="product text-center skel-loader">
-              <div className="d-block mb-3 position-relative"><a className="d-block" href="detail.html"><img className="img-fluid w-100" src={product2} alt="..." /></a>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark" href="#"><i className="far fa-heart" /></a></li>
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-dark" href="#">Add to cart</a></li>
-                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href="#productView" data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                  </ul>
+          <div className="col-md-3 col-sm-6">
+            <div className="product-grid6">
+              <div className="product-image6">
+                <a href="#">
+                  <img className="pic-1" src={product2} />
+                </a>
+              </div>
+              <div className="product-content">
+                <h3 className="title"><a href="#">Nike Sneakers</a></h3>
+                <div className="price">$8.00
+                  <span>$12.00</span>
                 </div>
               </div>
-              <h6> <a className="reset-anchor" href="detail.html">Air Jordan 12 gym red</a></h6>
-              <p className="small text-muted">$300</p>
+              <ul className="social">
+                <li><a href data-tip="Quick View"><i className="fa fa-search" /></a></li>
+                <li><a href data-tip="Add to Wishlist"><i className="fa fa-shopping-bag" /></a></li>
+                <li><a href data-tip="Add to Cart"><i className="fa fa-shopping-cart" /></a></li>
+              </ul>
             </div>
           </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-3 col-sm-6">
-            <div className="product text-center skel-loader">
-              <div className="d-block mb-3 position-relative"><a className="d-block" href="detail.html"><img className="img-fluid w-100" src={product3} alt="..." /></a>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark" href="#"><i className="far fa-heart" /></a></li>
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-dark" href="#">Add to cart</a></li>
-                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href="#productView" data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                  </ul>
+          <div className="col-md-3 col-sm-6">
+            <div className="product-grid6">
+              <div className="product-image6">
+                <a href="#">
+                  <img className="pic-1" src={product3} />
+                </a>
+              </div>
+              <div className="product-content">
+                <h3 className="title"><a href="#">Mens Wrist Watches</a></h3>
+                <div className="price">$11.00
+                  <span>$14.00</span>
                 </div>
               </div>
-              <h6> <a className="reset-anchor" href="detail.html">Cyan cotton t-shirt</a></h6>
-              <p className="small text-muted">$25</p>
+              <ul className="social">
+                <li><a href data-tip="Quick View"><i className="fa fa-search" /></a></li>
+                <li><a href data-tip="Add to Wishlist"><i className="fa fa-shopping-bag" /></a></li>
+                <li><a href data-tip="Add to Cart"><i className="fa fa-shopping-cart" /></a></li>
+              </ul>
             </div>
           </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-3 col-sm-6">
-            <div className="product text-center skel-loader">
-              <div className="d-block mb-3 position-relative"><a className="d-block" href="detail.html"><img className="img-fluid w-100" src={product4} alt="..." /></a>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-outline-dark" href="#"><i className="far fa-heart" /></a></li>
-                    <li className="list-inline-item m-0 p-0"><a className="btn btn-sm btn-dark" href="#">Add to cart</a></li>
-                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href="#productView" data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                  </ul>
+          <div className="col-md-3 col-sm-6">
+            <div className="product-grid6">
+              <div className="product-image6">
+                <a href="#">
+                  <img className="pic-1" src={product4} />
+                </a>
+              </div>
+              <div className="product-content">
+                <h3 className="title"><a href="#">Men's Shirt</a></h3>
+                <div className="price">$11.00
+                  <span>$14.00</span>
                 </div>
               </div>
-              <h6> <a className="reset-anchor" href="detail.html">Timex Unisex Originals</a></h6>
-              <p className="small text-muted">$351</p>
+              <ul className="social">
+                <li><a href data-tip="Quick View"><i className="fa fa-search" /></a></li>
+                <li><a href data-tip="Add to Wishlist"><i className="fa fa-shopping-bag" /></a></li>
+                <li><a href data-tip="Add to Cart"><i className="fa fa-shopping-cart" /></a></li>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
         </div>
     )
 }

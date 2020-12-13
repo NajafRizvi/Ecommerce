@@ -26,7 +26,7 @@ export const Navbar = (props) => {
             <Link to={'/Addtocart/'}>
             <a href="#" className="nav-item nav-link">Cart<i className="fa fa-shopping-cart" />
             {cartItems.length> 0 && (
-              <span><i className="fa fa-user-check"></i>{cartItems.length}</span>
+              <span className="badge bg-danger">{cartItems.length}</span>
             )}
             </a>
             </Link>

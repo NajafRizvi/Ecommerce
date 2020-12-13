@@ -52,8 +52,9 @@ export default function Home() {
                 </a>
               </div>
               <div className="product-content">
-                <h3 className="title"><a href="#">${items.price}</a></h3>
-                <div className="price">$
+              <h3 className="title"><a href="#">{items.name}</a></h3>
+                <h6 className="title"><a href="#">${items.price}</a></h6>
+                <div className="price">
                   <span>${items.price}</span>
                 </div>
               </div>

@@ -9,6 +9,7 @@ import RelatedProducts from './RelatedProducts';
 export default function Preview(props) {
   const productDetail = useSelector(state => state.productDetail)
   const { products, loading, error } = productDetail
+  console.log(products)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(listProductDetails(props.match.params.id))
@@ -49,52 +50,6 @@ export default function Preview(props) {
     (<div>{error}</div>):
         <div>
         <Navbar/>
-          <header role="banner" aria-label="Heading">
-            <div className="header">
-              <div className="_cont">
-                <div className="shadow">
-                  <a className="logo" title="Home" href="https://github.com/greenwoodents/quickbeam.js">Quickbeam.js Demo</a>
-                </div>
-                <div className="mobile-menu">
-                  <form action="/search" method="get" id="find">
-                    <div>
-                      <input type="text" name="q" id="find-input" className="find-input" placeholder="Search..." defaultValue />
-                      <button type="submit" title="Search" id="find-btn">Search</button>
-                    </div>
-                  </form>
-                  <a id="customer_login_link">Sign In</a>
-                  <nav role="navigation" aria-label="Catalog">
-                    <ul>
-                      <li>
-                        <a>Home</a>
-                      </li>
-                      <li className="nav-li-category">
-                        <a className="nc nav-category" >Shop</a>
-                        
-                      </li>
-                      <li className="nc nav-li-category">
-                        <a className="nc nav-category" >Contact</a>
-                        
-                      </li>
-                      <li className="nc nav-li-category">
-                        <a className="nc nav-category" >About Us</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-                <span id="nav-icon" />
-              </div>
-            </div>
-            <div className="breadcrumb" role="navigation" aria-label="Breadcrumbs">
-              <div className="_cont">
-                <ol>
-                  <li><a title="Back to the frontpage">Home</a></li>
-                  <li><a title>Shop</a></li>
-                  <li>Tony Hunfinger T-Shirt New York</li>
-                </ol>
-              </div>
-            </div>
-          </header>
           <section aria-label="Main content" role="main" className="product-detail">
             <div itemScope itemType="http://schema.org/Product">
               <div className="shadow">
@@ -124,18 +79,17 @@ export default function Preview(props) {
                           <a>Free shipping</a>
                         </div>
                         <div className="swatches">
-                          <div className="swatch clearfix" data-option-index={0}>
+                          <div className="swatch clearfix">
                             <div className="header">Size</div>
-                            
-                              {/* <div data-value="M" className='swatch-element plain xl available active'>
-                                <input id="swatch-0-x" type="radio" name="option-0" />
-                                <label htmlFor="swatch-0-x">
+{/*                                 
                                   {Object.values(products.size).map(x=>(
-                                   <h1>{x}</h1>
-                                  ))}
-                                </label>
-                              </div> */}
-                            
+                                     <div data-value="M" className='swatch-element plain xl available active'>
+                                     <input id="swatch-0-x" type="radio" name="option-0" />
+                                    <label htmlFor="swatch-0-x">
+                                      {x}  
+                                    </label>
+                                    </div>
+                                  ))}          */}
                           </div>
                           <div className="swatch clearfix" data-option-index={1}>
                             <div className="header">Color</div>

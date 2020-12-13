@@ -119,10 +119,7 @@ export default function Addtocard(props) {
                     </div>
                     }
                 </div>
-            </div> 
-            <Elements stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>                             
+            </div>                             
             <Footer/>
         </div>
     )

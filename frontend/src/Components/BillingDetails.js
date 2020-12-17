@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import './home.css'
 import Footer from './Footer'
-import CheckoutForm from './CheckoutForm'
+import key from './Config/dev'
 import {useSelector} from 'react-redux'
 import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js';
@@ -299,7 +299,7 @@ function Checkout(props) {
     )
 }
 export default function BillingDetails(){
-  const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
+  const stripePromise = loadStripe(key.publishableKey);
   return(
     <div>
       <Elements stripe={stripePromise}>

@@ -1,2 +1,4 @@
 node_modules
+backend/config/dev.js
 frontend/node_modules
+frontend/src/Components/Config/dev.js

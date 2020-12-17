@@ -1,6 +1,7 @@
 import express from 'express';
 import stripe from 'stripe';
 import data from './products.json';
+import key from './config/dev'
 const app = express();
 app.use(express.json())
 app.use(express.static('.'));
@@ -37,7 +38,11 @@ app.get("/api/product/:id", (req, res) => {
     res.status(404).send({mess:"Failed"})
   }
   });
+<<<<<<< HEAD
+  const Stripe =  stripe(key.stripeSecret)
+=======
   const Stripe =  stripe("sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0")
+>>>>>>> ff1c9df... Payment functionality sucessfuly work
   app.post('/payment', async (req, res) => {
       try {
           const {amount} = req.body

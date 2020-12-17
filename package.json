@@ -11,6 +11,7 @@
   "dependencies": {
     "curl": "^0.1.4",
     "express": "^4.17.1",
+    "react-grid-gallery": "^0.5.5",
     "stripe": "^8.127.0"
   },
   "devDependencies": {

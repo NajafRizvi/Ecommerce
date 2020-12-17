@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './home.css';
+import Gallery from 'react-grid-gallery';
 import Footer from './Footer';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { Link } from 'react-router-dom';
@@ -16,6 +17,9 @@ export default function Home() {
       //
     }
   }, [])
+  const View = ()=>{
+    <Gallery></Gallery>
+  }
   return(
     loading?
     <div class="d-flex justify-content-center">
@@ -44,6 +48,7 @@ export default function Home() {
   <ScrollAnimation animateIn='fadeIn'>
       <div className="row">
         {products.map(items=>(
+          
             <div className="col-md-3 col-sm-6">
             <div className="product-grid6" key={items.id}>
               <div className="product-image6">

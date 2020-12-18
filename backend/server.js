@@ -38,7 +38,15 @@ app.get("/api/product/:id", (req, res) => {
     res.status(404).send({mess:"Failed"})
   }
   });
+<<<<<<< HEAD
   const Stripe =  stripe(key.stripeSecret)
+=======
+<<<<<<< HEAD
+  const Stripe =  stripe(key.stripeSecret)
+=======
+  const Stripe =  stripe("sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0")
+>>>>>>> ff1c9df... Payment functionality sucessfuly work
+>>>>>>> 8adb811687f333fe160777488bba3b4f56e0a87f
   app.post('/payment', async (req, res) => {
       try {
           const {amount} = req.body

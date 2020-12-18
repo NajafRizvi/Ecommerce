@@ -1,19 +1,25 @@
 import React,{useState} from 'react'
 import './home.css'
 import Footer from './Footer'
-import key from './Config/dev'
+import CheckoutForm from './CheckoutForm'
 import {useSelector} from 'react-redux'
 import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js';
 import {Elements,useStripe,useElements,CardElement} from '@stripe/react-stripe-js';
 function Checkout(props) {
+    //Redrive Products Items from Cart reducer
     const state = useSelector(state => state.cart)
     const {cartItems} = state
-    const price = cartItems[0].price
+    Object.values(cartItems).map(x=>(
+      console.log(x.name)
+    ))
+    //Set Payment CartElement
     const [isProcessing, setIsProcessing] = useState(false)
     const [checkoutErrorMsg, setCheckoutErrorMsg] = useState("")
     const [buttonMsg, setButtonMsg] = useState("Pay")
-
+    //Caculate the Total price to show in Order section
+    const Price = cartItems.reduce((a, c) => a + c.price * c.qty, -10)
+    //Declear from Stripe Payment
     const stripe = useStripe()
     const element = useElements()
     // Custom styling can be passed to options when creating an Element.
@@ -41,7 +47,7 @@ function Checkout(props) {
         }
         setCheckoutErrorMsg("")
     }
-
+    //Used in Paymeny Button
     const handlePayment = async (e) => {
 
         e.preventDefault()
@@ -63,7 +69,7 @@ function Checkout(props) {
         try {
             // Got our client secret
             const paymentIntent = await axios.post("/payment", {
-                amount: price * 100
+                amount: Price * 100
             })
 
             // Create PaymentMethod Object
@@ -178,10 +184,6 @@ function Checkout(props) {
                       <input className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
                     </div>
                     <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="lastName">Last name</label>
-                      <input className="form-control form-control-lg" id="lastName" type="text" placeholder="Enter your last name" />
-                    </div>
-                    <div className="col-lg-6 form-group">
                       <label className="text-small text-uppercase" htmlFor="email">Email address</label>
                       <input className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
                     </div>
@@ -189,74 +191,11 @@ function Checkout(props) {
                       <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
                       <input className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
                     </div>
-                    <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="company">Company name (optional)</label>
-                      <input className="form-control form-control-lg" id="company" type="text" placeholder="Your company name" />
-                    </div>
                     <div className="col-lg-12 form-group">
                       <label className="text-small text-uppercase" htmlFor="address">Address line 1</label>
                       <input className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
                     </div>
                     <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="city">Town/City</label>
-                      <input className="form-control form-control-lg" id="city" type="text" />
-                    </div>
-                    <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="state">State/County</label>
-                      <input className="form-control form-control-lg" id="state" type="text" />
-                    </div>
-                    <div className="col-lg-6 form-group">
-                      <div className="custom-control custom-checkbox">
-                        <input className="custom-control-input" id="alternateAddressCheckbox" type="checkbox" />
-                        <label className="custom-control-label text-small" htmlFor="alternateAddressCheckbox">Alternate billing address</label>
-                      </div>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="row d-none" id="alternateAddress">
-                        <div className="col-12 mt-4">
-                          <h2 className="h4 text-uppercase mb-4">Alternative billing details</h2>
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="firstName2">First name</label>
-                          <input className="form-control form-control-lg" id="firstName2" type="text" placeholder="Enter your first name" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="lastName2">Last name</label>
-                          <input className="form-control form-control-lg" id="lastName2" type="text" placeholder="Enter your last name" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="email2">Email address</label>
-                          <input className="form-control form-control-lg" id="email2" type="email" placeholder="e.g. Jason@example.com" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="phone2">Phone number</label>
-                          <input className="form-control form-control-lg" id="phone2" type="tel" placeholder="e.g. +02 245354745" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="company2">Company name (optional)</label>
-                          <input className="form-control form-control-lg" id="company2" type="text" placeholder="Your company name" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="country2">Country</label>
-                          <select className="selectpicker country" id="country2" data-width="fit" data-style="form-control form-control-lg" data-title="Select your country" />
-                        </div>
-                        <div className="col-lg-12 form-group">
-                          <label className="text-small text-uppercase" htmlFor="address2">Address line 1</label>
-                          <input className="form-control form-control-lg" id="address2" type="text" placeholder="House number and street name" />
-                        </div>
-                        <div className="col-lg-12 form-group">
-                          <label className="text-small text-uppercase" htmlFor="address2">Address line 2</label>
-                          <input className="form-control form-control-lg" id="addressalt2" type="text" placeholder="Apartment, Suite, Unit, etc (optional)" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="city3">Town/City</label>
-                          <input className="form-control form-control-lg" id="city3" type="text" />
-                        </div>
-                        <div className="col-lg-6 form-group">
-                          <label className="text-small text-uppercase" htmlFor="state4">State/County</label>
-                          <input className="form-control form-control-lg" id="state4" type="text" />
-                        </div>
-                      </div>
                     </div>
                     <div className="col-lg-12 form-group">
                       <button className="btn btn-dark" type="submit" disabled={isProcessing}>{buttonMsg}</button>
@@ -270,25 +209,36 @@ function Checkout(props) {
                   <div className="card-body">
                     <h5 className="text-uppercase mb-4">Your order</h5>
                     <ul className="list-unstyled mb-0">
-                      {cartItems.map((item,index)=>(
+                      {Object.values(cartItems).map((x,i)=>(
+                          <div>
+                          <li key={i} className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{x.name}</strong><span className="text-muted small">${x.price * x.qty}</span></li>
+                          <li className="border-bottom my-2"/>
+                          </div>
+                      ))}
+                      {/* {cartItems.map((item,index)=>(
                         <div>
                         <li key={index} className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{item.name}</strong><span className="text-muted small">${cartItems.reduce((a, c) => a + c.price * c.qty,0)}</span></li>
                         <li className="border-bottom my-2"/>
                         </div>
-                      ))}
+                      ))} */}
+                       <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Shipping Fees</strong><span>$10</span></li>
                       <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>${cartItems.reduce((a, c) => a + c.price * c.qty,-10)}</span></li>
                     </ul>
                   </div>
                 </div>
+                <div className="row">
+                  <div className="col-lg-12">
+                  <p className="text-body">
+                  {checkoutErrorMsg}
+                  </p>
+                  </div>
+              </div>
                 <div className="row">
                         <div className="col">
                         <CardElement
                         options={CARD_ELEMENT_OPTIONS}
                         onChange={handleChange}/>
                         </div>
-                <p>
-                    {checkoutErrorMsg}
-                </p>
               </div>
               </div>
             </div>
@@ -299,7 +249,7 @@ function Checkout(props) {
     )
 }
 export default function BillingDetails(){
-  const stripePromise = loadStripe(key.publishableKey);
+  const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
   return(
     <div>
       <Elements stripe={stripePromise}>

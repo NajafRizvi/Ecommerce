@@ -1,7 +1,6 @@
 import React,{ useEffect,useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart,removeFromCart } from '../store/action/addToCardAction'
-import CheckoutForm from './CheckoutForm';
 import product from '../img/product-2.jpg';
 import EmptyCart from './EmptyCart';
 import Footer from './Footer';
@@ -119,10 +118,7 @@ export default function Addtocard(props) {
                     </div>
                     }
                 </div>
-            </div> 
-            <Elements stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>                             
+            </div>                            
             <Footer/>
         </div>
     )

@@ -4,7 +4,7 @@ import Footer from './Footer';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {Navbar} from './Navbar';
+import Header from './Header';
 import {Listproduct} from '../store/action/productListAction'
 export default function Home() {
   const productList = useSelector(state => state.productList);
@@ -25,7 +25,7 @@ export default function Home() {
     </div>:
     error?<div>{error}</div>:
     <div>
-    <Navbar/>
+    <Header/>
     <section className="hero pb-3 bg-cover bg-center d-flex align-items-center">
     <div className="container py-5">
       <div className="row px-4 px-lg-5">

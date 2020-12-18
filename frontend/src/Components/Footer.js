@@ -40,7 +40,7 @@ export default function Footer() {
                 <p className="small text-muted mb-0">© 2020 All rights reserved.</p>
               </div>
               <div className="col-lg-6 text-lg-right">
-                <p className="small text-muted mb-0">Template designed by <a className="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
+                <p className="small text-muted mb-0">designed by <a className="text-white reset-anchor" href="https://askariportfolio.me/">Askari.portfolio</a></p>
               </div>
             </div>
           </div>

@@ -1,8 +1,10 @@
-import React from 'react'
-import bag from '../img/bag.png'
-import {GrCart, GrSearch} from 'react-icons/gr'
+import React from 'react';
+import tshirt from '../img/T-Shirt-PNG-Background-Image.png';
+import {FaUserAlt,FaShoppingCart} from 'react-icons/fa';
+import {GrSearch} from 'react-icons/gr';
 import {useSelector} from 'react-redux';
 import './header.css';
+import { Link } from 'react-router-dom';
 // import './bootstrap.css';
 export default function Design() {
   const cart = useSelector(state => state.cart);
@@ -15,11 +17,11 @@ export default function Design() {
             {/* nav */}
             <div className="top-w3pvt d-flex">
               <div id="logo">
-                <h1> <a href="index.html"><span className="log-w3pvt">B</span>aggage</a> <label className="sub-des">Online Store</label></h1>
+                <h1> <Link to={'/'}><span className="log-w3pvt">T</span>shirtsus</Link> <label className="sub-des">Online Store</label></h1>
               </div>
               <div className="forms ml-auto">
-                <a href="login.html" className="btn"><i className=" fa fa-user"/> Sign In</a>
-                <a href="register.html" className="btn"><GrCart size={26}/>Cart
+                <a href="login.html" className="btn"><FaUserAlt size={18}/> Sign In</a>
+                <a href="register.html" className="btn"><FaShoppingCart size={18}/> Cart
                 {cartItems.length> 0 && (
                 <span className="badge bg-danger ml-1">{cartItems.length}</span>
                 )}
@@ -68,11 +70,11 @@ export default function Design() {
         <div className="banner-wthree-info container">
           <div className="row">
             <div className="col-lg-5 banner-left-info">
-              <h3>The Largest Range <span>of HandBags</span></h3>
+              <h3>The Largest Range <span>of T-Shirts</span></h3>
               <a href="shop.html" className="btn shop">Shop Now</a>
             </div>
             <div className="col-lg-7 banner-img">
-              <img src={bag} alt="part image" className="img-fluid" />
+              <img src={tshirt} alt="part image" className="img-fluid h-75 w-100" />
             </div>
           </div>
         </div>

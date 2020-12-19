@@ -250,11 +250,8 @@ function Checkout(props) {
     )
 }
 export default function BillingDetails(){
-<<<<<<< HEAD
+
   const stripePromise = loadStripe(key.publishableKey);
-=======
-  const stripePromise = loadStripe('pk_test_51HueyACuy52IK8zWyDBJwnm8mcSrQwWStva9HsHHdsJJk1GRnQLPE6P0m4EOcBqnVDr5smI3vXFbn51uxyDBO7YN00KOTo0TgV');
->>>>>>> ff1c9df... Payment functionality sucessfuly work
   return(
     <div>
       <Elements stripe={stripePromise}>

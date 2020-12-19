@@ -2,6 +2,7 @@ import React from "react"
 import {useSelector} from 'react-redux';
 import {GrSearch,GrCart} from 'react-icons/gr';
 import {FaUserPlus} from 'react-icons/fa'
+import {Link} from 'react-router-dom'
 import './navbar.css'
 export const Navbar = (props) => {
   const cart = useSelector(state => state.cart);
@@ -14,7 +15,7 @@ export const Navbar = (props) => {
         {/* nav */}
         <div className="top-w3pvt d-flex">
           <div id="logo">
-            <h1> <a href="index.html"><span className="log-w3pvt">B</span>aggage</a> <label className="sub-des">Online Store</label></h1>
+            <h1><Link to={'/'}><span className="log-w3pvt">T</span>shirtsus</Link> <label className="sub-des">Online Store</label></h1>
           
           </div>
           <div className="forms ml-auto">

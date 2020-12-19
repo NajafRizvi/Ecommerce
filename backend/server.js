@@ -1,27 +1,17 @@
 import express from 'express';
+import path from 'path';
+import config from './config'
 import stripe from 'stripe';
 import data from './products.json';
 import key from './config/dev'
 const app = express();
 app.use(express.json())
-app.use(express.static('.'));
-// app.post("/checkout",async(req,res)=>{
-//   const stripe = Stripe('sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0');
-//   console.log("Request",req.body);
-//   let error;
-//   let status;
-//   try{
-//     const {product,token} = req.body;
-//     const customer = await
-//     stripe.customers.create({
-//       email:token.email,
-//       source:token.id
-//     })
-//   }
-//   catch(error){
-//     console.error(error);
-//   }
-// }) 
+
+app.use(express.static(path.join(__dirname, '/../frontend/build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
+});
+
 //Get All data from server
 app.get("/api/product", (req, res) => {
     res.send(data);
@@ -38,15 +28,8 @@ app.get("/api/product/:id", (req, res) => {
     res.status(404).send({mess:"Failed"})
   }
   });
-<<<<<<< HEAD
+
   const Stripe =  stripe(key.stripeSecret)
-=======
-<<<<<<< HEAD
-  const Stripe =  stripe(key.stripeSecret)
-=======
-  const Stripe =  stripe("sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0")
->>>>>>> ff1c9df... Payment functionality sucessfuly work
->>>>>>> 8adb811687f333fe160777488bba3b4f56e0a87f
   app.post('/payment', async (req, res) => {
       try {
           const {amount} = req.body
@@ -65,33 +48,7 @@ app.get("/api/product/:id", (req, res) => {
       }
   
   })
-// const YOUR_DOMAIN = 'localhost:3000/AddToCheckout';
-// app.post('/create-checkout-session', async (req, res) =>{
-//   const Stripe = new stripe("sk_test_51HueyACuy52IK8zWn9Ef86gep5H2mOfUzzG7RyVTKljxYxbvFGkPFGDfhrmo3zOLIrjkGWMtdAggOTPTjkbzbqfA00I2P1sDa0")
-//   try{
-//     const session = await Stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: 'usd',
-//             product_data: {
-//               name: 'Stubborn Attachments',
-//               images: ['https://i.imgur.com/EHyR2nP.png'],
-//             },
-//             unit_amount: 2000,
-//           },
-//           quantity: 1,
-//         },
-//       ],
-//       mode: 'payment',
-//       success_url: `${YOUR_DOMAIN}?Success=true`,
-//       cancel_url: `${YOUR_DOMAIN}?Cancel=true`,
-//     });
-//     res.json({ id: session.id });
-//   }
-//   catch(error){
-//     console.log(error)
-//   }
-//   })
-app.listen(8000, () => { console.log("Server started at http://localhost:8000")})
+
+  app.listen(config.PORT, () => {
+    console.log('Server started at http://localhost:8000');
+  });

@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import './home.css'
 import Footer from './Footer'
-import key from './Config/dev';
-import CheckoutForm from './CheckoutForm';
+import CheckoutForm from './CheckoutForm'
 import {useSelector} from 'react-redux'
-import axios from 'axios'
+import axios from 'axios';
+import key from './Config/dev';
 import { loadStripe } from '@stripe/stripe-js';
 import {Elements,useStripe,useElements,CardElement} from '@stripe/react-stripe-js';
 function Checkout(props) {
@@ -181,20 +181,44 @@ function Checkout(props) {
                 <form  onSubmit={handlePayment}>
                   <div className="row">
                     <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="firstName">First name</label>
-                      <input className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
+                      <label className="text-small text-uppercase" 
+                      htmlFor="firstName">First name</label>
+                      <input className="form-control form-control-lg" 
+                             id="firstName" 
+                             type="text" 
+                             placeholder="Enter your first name" 
+                             required
+                             />
                     </div>
                     <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-                      <input className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+                      <label className="text-small text-uppercase" 
+                             htmlFor="email">Email address</label>
+                      <input 
+                            className="form-control form-control-lg" 
+                            id="email" type="email"
+                             placeholder="e.g. Jason@example.com" 
+                             required
+                             />
                     </div>
                     <div className="col-lg-6 form-group">
-                      <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-                      <input className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+                      <label className="text-small text-uppercase" 
+                             htmlFor="phone">Phone number</label>
+                      <input className="form-control form-control-lg" 
+                             id="phone" 
+                             type="tel" 
+                             placeholder="e.g. +02 245354745" 
+                             required
+                             />
                     </div>
                     <div className="col-lg-12 form-group">
-                      <label className="text-small text-uppercase" htmlFor="address">Address line 1</label>
-                      <input className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
+                      <label className="text-small text-uppercase" 
+                             htmlFor="address">Address line 1</label>
+                      <input className="form-control form-control-lg" 
+                             id="address" 
+                             type="text" 
+                             placeholder="House number and street name" 
+                             required
+                             />
                     </div>
                     <div className="col-lg-6 form-group">
                     </div>
@@ -250,7 +274,6 @@ function Checkout(props) {
     )
 }
 export default function BillingDetails(){
-
   const stripePromise = loadStripe(key.publishableKey);
   return(
     <div>
